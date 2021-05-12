@@ -15,4 +15,5 @@ else{
 
 ?>
 
-<a href='dis_stock.php'><input type=button value='Search and See Stock' name=stock></a>
+<a href='search.php'><input type=button value='Search and See Stock' ></a>
+<a href='insert1.php'><input type=button value='Insert Stock' ></a>

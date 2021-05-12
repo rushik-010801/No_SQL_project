@@ -119,11 +119,10 @@ input[type=submit]
     $collection = $db->Godown_stock;
 
     //variables 
-    $cat = $_POST["categories"];
-    $sub = $_POST["SubCategory"];
+    $pid = $_POST["productid"];
 
     //iterator
-    $cursor = $collection->find(['Category' => $cat, 'Sub-Category' => $sub,]);
+    $cursor = $collection->find(['Product ID' => $pid,]);
     
     foreach($cursor as $document){
         echo"<tr>";
