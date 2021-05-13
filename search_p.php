@@ -15,6 +15,15 @@ else{
 <html>
 <head>
 <title>Page Title</title>
+<style>
+  label{
+    font-weight: bold;
+  }
+.search-p1{
+  background-color:aqua;
+  border-style: none;
+}
+  </style>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -39,7 +48,7 @@ else{
             </a>
     </li>
     <li class="nav-item">
-    <a href="admin_home.php" class="nav-link text-dark font-italic">
+      <a href="admin_home.php" class="nav-link text-dark font-italic">
                 <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
                 Home
             </a>
@@ -59,13 +68,13 @@ else{
     <li class="nav-item">
       <a href="update_p.php" class="nav-link text-dark font-italic">
                 <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Update
+                Update 
             </a>
     </li>
     <li class="nav-item">
       <a href="delete_p.php" class="nav-link text-dark font-italic">
                 <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Delete
+                Delete 
             </a>
     </li>
     <li class="nav-item">
@@ -82,9 +91,51 @@ else{
 <!-- Page content holder -->
 <div class="page-content p-5" id="content">
 
-  <h2 class="display-4 text-white">STOCK DATA</h2>
-  <center><br><br>
-  <div class="scrollit">
+  <!-- Demo content -->
+  <h2 class="display-4 text-white">SEARCH</h2>
+  <p class="lead text-white mb-0">Which product you want to check?</p><br>
+  <div id="container">
+  <form action="search_p.php" method="post">
+
+  <?php 
+  //Connecting MongoDB and to database and coolection
+  include 'dbconnect.php';
+  $db = $con->Product_data;
+  $collection = $db->Godown_stock;
+
+  //iterator category
+  $cursor = $collection->distinct('Category');
+  echo"<label for='categories'>Choose a Category:</label>";
+  echo"<select name='categories' id='category'>";
+  foreach($cursor as $document){
+      echo"<option value='$document'>$document</option>";
+  }
+  echo"</select><br><br>";
+
+  //iterator sub - category
+  $cursor = $collection->distinct('Sub-Category');
+  echo"<label for='SubCategory'>Choose a Sub-Category:</label>";
+  echo"<select name='SubCategory' id='subcategory'>";
+  foreach($cursor as $document){
+      echo"<option value='$document'>$document</option>";
+  }
+  echo"</select><br><br>";
+
+?> 
+<input type="submit" value="Search" class="search-p1"><br><br>
+</form>
+
+</form>
+<form action="search_p.php" method="post"> 
+<input type="text"  name="pname" placeholder="Enter Product Name">
+<input type="submit" value="Search" class="search-p1"><br><Br>
+</form>
+<form action="search_p.php" method="post"> 
+<input type="text"  name="pid" placeholder="Enter Product ID">
+<input type="submit" value="Search" class="search-p1">
+</form>
+    </div> <br><br>
+
     <table>        
       <tr>
       <th>Product ID</th>
@@ -98,19 +149,14 @@ else{
 
 
 <?php 
-    //Connecting MongoDB and to database and coolection
-    include 'dbconnect.php';
-    $db = $con->Product_data;
-    $collection = $db->Godown_stock;
 
-    //variables 
-    $cat = $_POST["categories"];
-    $sub = $_POST["SubCategory"];
-
-    //iterator
-    $cursor = $collection->find(['Category' => $cat, 'Sub-Category' => $sub,]);
-    
-    foreach($cursor as $document){
+    if(!empty($_POST['categories']) or !empty($_POST['SubCategory'])){
+      $cat = $_POST["categories"];
+      $sub = $_POST["SubCategory"];
+  
+      //iterator
+      $cursor = $collection->find(['Category' => $cat, 'Sub-Category' => $sub,]);
+      foreach($cursor as $document){
         echo"<tr>";
         echo"<td>".$document["Product ID"]."</td>";
         echo"<td>".$document["Product Name"]."</td>";
@@ -121,15 +167,47 @@ else{
         echo"<td>".$document["Quantity"]."</td>";
         echo"</tr>";
     }
+   }
 
+   if(!empty($_POST['pname'])){
+      $pname = $_POST["pname"];
+
+    //iterator
+    $cursor = $collection->find(['Product Name' => $pname,]);
+    foreach($cursor as $document){
+      echo"<tr>";
+      echo"<td>".$document["Product ID"]."</td>";
+      echo"<td>".$document["Product Name"]."</td>";
+      echo"<td>".$document["Ship Date"]."</td>";
+      echo"<td>".$document["Category"]."</td>";
+      echo"<td>".$document["Sub-Category"]."</td>";
+      echo"<td>".$document["Price"]."</td>";
+      echo"<td>".$document["Quantity"]."</td>";
+      echo"</tr>";
+  }
+ }
+
+ if(!empty($_POST['pid'])){
+  $pid = $_POST["pid"];
+
+//iterator
+$cursor = $collection->find(['Product ID' => $pid,]);
+foreach($cursor as $document){
+  echo"<tr>";
+  echo"<td>".$document["Product ID"]."</td>";
+  echo"<td>".$document["Product Name"]."</td>";
+  echo"<td>".$document["Ship Date"]."</td>";
+  echo"<td>".$document["Category"]."</td>";
+  echo"<td>".$document["Sub-Category"]."</td>";
+  echo"<td>".$document["Price"]."</td>";
+  echo"<td>".$document["Quantity"]."</td>";
+  echo"</tr>";
+}
+}
+
+    
  ?> 
  </table>
- <div>
-</center>
 </div>
 </body>
 </html> 
-
- 
-
-

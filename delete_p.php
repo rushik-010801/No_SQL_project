@@ -15,6 +15,15 @@ else{
 <html>
 <head>
 <title>Page Title</title>
+<style>
+  label{
+    font-weight: bold;
+  }
+.search-p1{
+  background-color:aqua;
+  border-style: none;
+}
+  </style>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -47,7 +56,7 @@ else{
     <li class="nav-item">
       <a href="search_p.php" class="nav-link text-dark font-italic">
                 <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Search 
+                Search
             </a>
     </li>
     <li class="nav-item">
@@ -81,8 +90,65 @@ else{
 
 <!-- Page content holder -->
 <div class="page-content p-5" id="content">
-  <h2 class="display-4 text-white">DASHBOARD</h2>
-  <p class="lead text-white mb-0">Something like total number of products categories total worth price we are having</p>
+
+  <!-- Demo content -->
+  <h2 class="display-4 text-white">DELETE</h2>
+  <p class="lead text-white mb-0">Which product you want to delete?</p><br>
+  <div id="container">
+
+</form>
+<form action="delete_p.php" method="post"> 
+<input type="text"  name="pname" placeholder="Enter Product Name">
+<input type="submit" value="Delete" class="search-p1"><br><Br>
+</form>
+<form action="delete_p.php" method="post"> 
+<input type="text"  name="pid" placeholder="Enter Product ID">
+<input type="submit" value="Delete" class="search-p1">
+</form>
+    </div> <br><br>
+
+    <table>        
+      <tr>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Ship Date</th>
+      <th>Category</th>
+      <th>Sub-Category</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      </tr>
+
+
+<?php 
+    include 'dbconnect.php';
+    $db = $con->Product_data;
+    $collection = $db->Godown_stock;
+
+   if(!empty($_POST['pname'])){
+      $pname = $_POST["pname"];
+
+    //iterator
+    $cursor = $collection->deleteOne(['Product Name' => $pname,]);
+    
+echo "<script>alert('Deleted Data');</script>";
+printf("Inserted %d document(s)\n", $cursor->getDeletedCount());
+ }
+
+ else if(!empty($_POST['pid'])){
+  $pid = $_POST["pid"];
+
+//iterator
+$cursor = $collection->deleteOne(['Product ID' => $pid,]);
+
+echo "<script>alert('Deleted Data');</script>";
+printf("Deleted %d document(s)\n", $cursor->getDeletedCount());
+}
+
+
+
+    
+ ?> 
+ </table>
 </div>
 </body>
 </html> 

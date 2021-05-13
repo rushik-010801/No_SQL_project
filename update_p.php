@@ -47,7 +47,7 @@ else{
     <li class="nav-item">
       <a href="search_p.php" class="nav-link text-dark font-italic">
                 <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Search 
+                Search
             </a>
     </li>
     <li class="nav-item">
@@ -81,8 +81,74 @@ else{
 
 <!-- Page content holder -->
 <div class="page-content p-5" id="content">
-  <h2 class="display-4 text-white">DASHBOARD</h2>
-  <p class="lead text-white mb-0">Something like total number of products categories total worth price we are having</p>
+
+  <h2 class="display-4 text-white">Update</h2>
+  <p class="lead text-white mb-0">Which product you want to update?</p><br>
+  <div id="container">
+        <form action="update_p.php" method="post">
+            <input type="text" name="pid" placeholder="Product ID">
+            <input type="text" name="pname" placeholder="Product Name">
+            <input type="text" name="cat" placeholder="Category">
+            <input type="text" name="scat" placeholder="Sub-Category">
+            <input type="text" name="price" placeholder="Price">
+            <input type="text" name="qnt" placeholder="Quantity">
+                <input type="submit" value="Search" class="search-p">
+        </form>
+    </div> <br><br>
+
+    <table>        
+      <tr>
+      <th>Product ID</th>
+      <th>Product Name</th>
+      <th>Ship Date</th>
+      <th>Category</th>
+      <th>Sub-Category</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      </tr>
+
+
+<?php 
+    include 'dbconnect.php';
+    $db = $con->Product_data;
+    $collection = $db->Godown_stock;
+
+    if(!empty($_POST['pid'])){ 
+
+        $pid=$_POST["pid"];
+        $pname=$_POST["pname"];
+        $cat =$_POST["cat"];
+        // $scat=$_POST["scat"];
+        // $price=$_POST["price"];
+        // $qnt=$_POST["qnt"];
+
+        $cursor = $collection->updateOne(['Product ID'=> $pid],['$set'=>['Product Name'=>$pname,'Category'=>$cat]]);
+
+    foreach($cursor as $document){
+        echo"<tr>";
+        echo"<td>".$document["Product ID"]."</td>";
+        echo"<td>".$document["Product Name"]."</td>";
+        echo"<td>".$document["Ship Date"]."</td>";
+        echo"<td>".$document["Category"]."</td>";
+        echo"<td>".$document["Sub-Category"]."</td>";
+        echo"<td>".$document["Price"]."</td>";
+        echo"<td>".$document["Quantity"]."</td>";
+        echo"</tr>";
+    }
+   }
+   
+   if(empty($_POST['pid'])){
+    $pid='';
+   }
+    
+    // $pass=$_POST["tf2"]; 
+    // $Query = array('Product ID' => $pid);
+
+    //iterator
+    
+
+ ?> 
+ </table>
 </div>
 </body>
 </html> 
