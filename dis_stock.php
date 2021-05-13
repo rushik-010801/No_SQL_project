@@ -103,9 +103,13 @@ else{
     $db = $con->Product_data;
     $collection = $db->Godown_stock;
 
-    //iterator
-    $cursor = $collection->find();
+    //variables 
+    $cat = $_POST["categories"];
+    $sub = $_POST["SubCategory"];
 
+    //iterator
+    $cursor = $collection->find(['Category' => $cat, 'Sub-Category' => $sub,]);
+    
     foreach($cursor as $document){
         echo"<tr>";
         echo"<td>".$document["Product ID"]."</td>";
