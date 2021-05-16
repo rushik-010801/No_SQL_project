@@ -69,6 +69,12 @@ else{
             </a>
     </li>
     <li class="nav-item">
+      <a href="branch_add.php" class="nav-link text-dark font-italic">
+                <i class="fa fa-address-book-o mr-3 text-primary fa-fw"></i>
+                Add Branch
+            </a>
+    </li>
+    <li class="nav-item">
     <a href="admin_logout.php" class="nav-link text-dark font-italic">
     <i class="fa fa-sign-out mr-3 text-primary fa-fw"></i>
     Logout</a>
@@ -82,7 +88,23 @@ else{
 <!-- Page content holder -->
 <div class="page-content p-5" id="content">
   <h2 class="display-4 text-white">DASHBOARD</h2>
-  <p class="lead text-white mb-0">Something like total number of products categories total worth price we are having</p>
+  <p class="lead text-white mb-0">
+    <?php
+        include 'dbconnect.php';
+        $db = $con->Company_Chat;
+        $collection = $db->admin;
+        $cursor = $collection->find();
+        foreach($cursor as $document){
+          ?>
+          <p class="btn btn-info">
+          <?php
+            echo"From : " .$document['from'];
+            echo"Message : " .$document['message'];
+            echo "<p>--------------------------------</p>";
+        }
+    ?>
+    </p>
+  </p>
 </div>
 </body>
 </html> 

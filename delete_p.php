@@ -78,6 +78,12 @@ else{
             </a>
     </li>
     <li class="nav-item">
+      <a href="branch_add.php" class="nav-link text-dark font-italic">
+                <i class="fa fa-address-book-o mr-3 text-primary fa-fw"></i>
+                Add Branch
+            </a>
+    </li>
+    <li class="nav-item">
     <a href="admin_logout.php" class="nav-link text-dark font-italic">
     <i class="fa fa-sign-out mr-3 text-primary fa-fw"></i>
     Logout</a>
