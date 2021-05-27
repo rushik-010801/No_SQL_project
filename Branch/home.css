@@ -65,12 +65,13 @@
       width: calc(100% - 17rem);
     }
   }
-  
+
   body {
-    background: #599fd9;
+    background: #17a2b8; 
+    /* background-image: url("inventory.png"); */
     min-height: 100vh;
     overflow-x: hidden;
-  }
+  } 
   
   .separator {
     margin: 3rem 0;

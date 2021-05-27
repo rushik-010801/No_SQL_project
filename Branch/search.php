@@ -76,7 +76,7 @@ else{
   <h2 class="display-4 text-white">SEARCH</h2>
   <p class="lead text-white mb-0">Which product you want to check?</p><br>
   <div id="container">
-  <form action="search_p.php" method="post">
+  <form action="search.php" method="post">
 
   <?php 
   //Connecting MongoDB and to database and coolection
@@ -107,11 +107,11 @@ else{
 </form>
 
 </form>
-<form action="search_p.php" method="post"> 
+<form action="search.php" method="post"> 
 <input type="text"  name="pname" placeholder="Enter Product Name">
 <input type="submit" value="Search" class="search-p1"><br><Br>
 </form>
-<form action="search_p.php" method="post"> 
+<form action="search.php" method="post"> 
 <input type="text"  name="pid" placeholder="Enter Product ID">
 <input type="submit" value="Search" class="search-p1">
 </form>
