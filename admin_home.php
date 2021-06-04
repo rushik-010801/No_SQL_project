@@ -14,7 +14,17 @@ else{
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>Home Page</title>
+<style>
+    label{
+        font-weight: bold;
+    }
+    .branch-p{
+    background-color:aqua;
+    border-style: none;
+    width: 220px;
+  }
+    </style>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -99,12 +109,21 @@ else{
           <p class="btn btn-info">
           <?php
             echo"From : " .$document['from'];
-            echo"Message : " .$document['message'];
+            echo" : " .$document['message'];
             echo "<p>--------------------------------</p>";
         }
     ?>
     </p>
   </p>
+
+  <form action="message.php"  method="post">
+<label>Message to Branch:</label><br>
+<input type="text"  name="to" placeholder = "Enter Branch ID"><br>
+<textarea name="message" placeholder="message">
+</textarea><br>
+<input type="submit" value="Send" class="branch-p">
+</form>
+
 </div>
 </body>
 </html> 
