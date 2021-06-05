@@ -83,6 +83,12 @@ else{
                 Add Branch
             </a>
     </li>
+        <li class="nav-item">
+      <a href="analytics.php" class="nav-link text-dark font-italic">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                Analytics
+    </a>
+    </li>
     <li class="nav-item">
     <a href="admin_logout.php" class="nav-link text-dark font-italic">
     <i class="fa fa-sign-out mr-3 text-primary fa-fw"></i>
@@ -112,18 +118,6 @@ else{
 <input type="submit" value="Delete" class="search-p1">
 </form>
     </div> <br><br>
-
-    <table>        
-      <tr>
-      <th>Product ID</th>
-      <th>Product Name</th>
-      <th>Ship Date</th>
-      <th>Category</th>
-      <th>Sub-Category</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      </tr>
-
 
 <?php 
     include 'dbconnect.php';

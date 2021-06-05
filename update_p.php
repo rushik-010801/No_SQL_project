@@ -74,6 +74,12 @@ else{
                 Add Branch
             </a>
     </li>
+        <li class="nav-item">
+      <a href="analytics.php" class="nav-link text-dark font-italic">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                Analytics
+    </a>
+    </li>
     <li class="nav-item">
     <a href="admin_logout.php" class="nav-link text-dark font-italic">
     <i class="fa fa-sign-out mr-3 text-primary fa-fw"></i>
@@ -92,26 +98,19 @@ else{
   <p class="lead text-white mb-0">Which product you want to update?</p><br>
   <div id="container">
         <form action="update_p.php" method="post">
-            <input type="text" name="pid" placeholder="Product ID">
-            <input type="text" name="pname" placeholder="Product Name">
-            <input type="text" name="cat" placeholder="Category">
-            <input type="text" name="scat" placeholder="Sub-Category">
-            <input type="text" name="price" placeholder="Price">
-            <input type="text" name="qnt" placeholder="Quantity">
-                <input type="submit" value="Search" class="search-p">
+            <input type="text" name="pid" placeholder="Product ID"><br><br>
+            <select name='column' placeholder="Select Column you want to update">
+            <option value='Ship Date'>Ship Date</option>
+            <option value='Ship Mode'>Ship Mode</option>
+            <option value='Quantity'>Quantity</option>
+            <option value='Category'>Category</option>
+            <option value='Sub-Category'>Sub-Category</option>
+            <option value='Product Name'>Product Name</option>
+            <option value='Price'>Price</option>
+            <br><br><input type="text" name="value" placeholder="Enter Value"><br><br>
+            <input type="submit" value="Update" class="search-p">
         </form>
     </div> <br><br>
-
-    <table>        
-      <tr>
-      <th>Product ID</th>
-      <th>Product Name</th>
-      <th>Ship Date</th>
-      <th>Category</th>
-      <th>Sub-Category</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      </tr>
 
 
 <?php 
@@ -122,25 +121,11 @@ else{
     if(!empty($_POST['pid'])){ 
 
         $pid=$_POST["pid"];
-        $pname=$_POST["pname"];
-        $cat =$_POST["cat"];
-        // $scat=$_POST["scat"];
-        // $price=$_POST["price"];
-        // $qnt=$_POST["qnt"];
+        $column=$_POST["column"];
+        $value =$_POST["value"];
 
-        $cursor = $collection->updateOne(['Product ID'=> $pid],['$set'=>['Product Name'=>$pname,'Category'=>$cat]]);
-
-    foreach($cursor as $document){
-        echo"<tr>";
-        echo"<td>".$document["Product ID"]."</td>";
-        echo"<td>".$document["Product Name"]."</td>";
-        echo"<td>".$document["Ship Date"]."</td>";
-        echo"<td>".$document["Category"]."</td>";
-        echo"<td>".$document["Sub-Category"]."</td>";
-        echo"<td>".$document["Price"]."</td>";
-        echo"<td>".$document["Quantity"]."</td>";
-        echo"</tr>";
-    }
+        $cursor = $collection->updateOne(['Product ID'=> $pid],['$set'=>[$column=>$value]]);
+        echo "<script>alert('Updated Data');</script>";
    }
    
    if(empty($_POST['pid'])){

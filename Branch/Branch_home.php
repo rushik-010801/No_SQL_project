@@ -102,10 +102,6 @@ include 'branchdbconnect.php';
 </textarea><br>
 <input type="submit" value="Send" class="branch-p">
 </form>
-    
-
-
-
   </p>
 </div>
 </body>
