@@ -75,6 +75,12 @@ else{
             </a>
     </li>
     <li class="nav-item">
+      <a href="analytics.php" class="nav-link text-dark font-italic">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                Analytics
+    </a>
+    </li>
+    <li class="nav-item">
     <a href="admin_logout.php" class="nav-link text-dark font-italic">
     <i class="fa fa-sign-out mr-3 text-primary fa-fw"></i>
     Logout</a>
